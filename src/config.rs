@@ -3,6 +3,7 @@ use dotenvy::dotenv;
 #[derive(Debug, Clone)]
 pub struct Config {
     pub port: u16,
+    pub uds_path: Option<String>,
     pub fork_url: Option<String>,
     pub etherscan_key: Option<String>,
     pub api_key: Option<String>,
@@ -20,6 +21,7 @@ fn load_config() -> Config {
         .unwrap_or("8080".to_string())
         .parse::<u16>()
         .expect("PORT must be a valid u16.");
+    let uds_path = std::env::var("UDS_PATH").ok().filter(|k| !k.is_empty());
     let fork_url = std::env::var("FORK_URL").ok().filter(|k| !k.is_empty());
     let etherscan_key = std::env::var("ETHERSCAN_KEY")
         .ok()
@@ -34,6 +36,7 @@ fn load_config() -> Config {
     Config {
         fork_url,
         port,
+        uds_path,
         etherscan_key,
         api_key,
         max_request_size,
