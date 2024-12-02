@@ -26,8 +26,8 @@ pub fn simulate_routes(
     simulate(config.clone())
         .or(simulate_bundle(config.clone()))
         .or(simulate_stateful_new(config.clone(), state.clone()))
+        .or(simulate_stateful(config, state.clone()))
         .or(simulate_stateful_end(state.clone()))
-        .or(simulate_stateful(config, state))
 }
 
 /// POST /simulate
